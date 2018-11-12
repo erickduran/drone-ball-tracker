@@ -1,10 +1,24 @@
 import cv2
 import numpy as np
-
+import execjs
 from rectangular_area import RectangularArea	
 
 def main():
-	capture	= cv2.VideoCapture(0)
+	ctx = execjs.compile('''
+	var bebop = require("./node_modules/node-bebop/lib");
+	var drone = bebop.createClient();
+
+	function conn(){
+	return drone.connect(function() {
+		drone.MediaStreaming.videoStreamMode(2);
+		drone.PictureSettings.videoStabilizationMode(3);
+		drone.MediaStreaming.videoEnable(1);
+	});
+	}
+	''')
+
+	print(ctx.call('conn'))
+	capture	= cv2.VideoCapture("./bebop.sdp")
 
 	width 	= 600
 	height 	= 337
