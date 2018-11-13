@@ -6,9 +6,9 @@ from rectangular_area import RectangularArea
 def main():
 	capture	= cv2.VideoCapture(0)
 
-	width 	= 600
-	height 	= 337
-	dim 	= (width, height)
+	width = 600
+	height = 337
+	dim = (width, height)
 
 	horizontal_divisions = 3
 	vertical_divisions = 3
@@ -16,27 +16,32 @@ def main():
 	slice_x = int(width/horizontal_divisions)
 	slice_y = int(height/vertical_divisions)
 
-	red 	= (0,0,255)
-	green 	= (0,255,0)
-	blue 	= (255,0,0)
-	white 	= (255,255,255)
+	red = (0,0,255)
+	green = (0,255,0)
+	blue = (255,0,0)
+	white = (255,255,255)
 
+	# GREEN BALL
 	lower_color_bound = np.array([25,40,0])
 	upper_color_bound = np.array([80,130,255])
+
+	# ORANGE BALL
+	# lower_color_bound = np.array([0,150,30])
+	# upper_color_bound = np.array([80,255,255])
 
 	hd = horizontal_divisions-1
 	vd = vertical_divisions-1
 
 	areas = []
-	areas.append(RectangularArea((0			,0			), (slice_x		,slice_y	), red))
-	areas.append(RectangularArea((slice_x	,0			), (slice_x*hd 	,slice_y	), red))
-	areas.append(RectangularArea((slice_x*hd,0			), (width		,slice_y	), red))
-	areas.append(RectangularArea((0			,slice_y	), (slice_x		,slice_y*vd ), red))
-	areas.append(RectangularArea((slice_x	,slice_y	), (slice_x*hd 	,slice_y*vd ), green))
-	areas.append(RectangularArea((slice_x*hd,slice_y	), (width		,slice_y*vd ), red))
-	areas.append(RectangularArea((0			,slice_y*vd ), (slice_x		,height		), red))
-	areas.append(RectangularArea((slice_x	,slice_y*vd ), (slice_x*hd 	,height		), red))
-	areas.append(RectangularArea((slice_x*hd,slice_y*vd ), (width		,height		), red))
+	areas.append(RectangularArea((0, 0), (slice_x, slice_y), red))
+	areas.append(RectangularArea((slice_x, 0), (slice_x*hd,slice_y), red))
+	areas.append(RectangularArea((slice_x*hd, 0), (width, slice_y), red))
+	areas.append(RectangularArea((0, slice_y), (slice_x, slice_y*vd), red))
+	areas.append(RectangularArea((slice_x, slice_y), (slice_x*hd, slice_y*vd), green))
+	areas.append(RectangularArea((slice_x*hd, slice_y), (width, slice_y*vd), red))
+	areas.append(RectangularArea((0, slice_y*vd), (slice_x, height), red))
+	areas.append(RectangularArea((slice_x, slice_y*vd), (slice_x*hd, height), red))
+	areas.append(RectangularArea((slice_x*hd, slice_y*vd), (width, height), red))
 
 	while True:
 		_, image = capture.read()
@@ -52,17 +57,17 @@ def main():
 
 		img, contours, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-		frame = cv2.line(frame, (0			, slice_y	), (width		, slice_y	), blue, 1)
-		frame = cv2.line(frame, (0			, slice_y*vd), (width		, slice_y*vd), blue, 1)
-		frame = cv2.line(frame, (slice_x	, 0			), (slice_x		, height	), blue, 1)
-		frame = cv2.line(frame, (slice_x*hd , 0			), (slice_x*hd	, height	), blue, 1)
+		frame = cv2.line(frame, (0, slice_y), (width, slice_y), blue, 1)
+		frame = cv2.line(frame, (0, slice_y*vd), (width, slice_y*vd), blue, 1)
+		frame = cv2.line(frame, (slice_x, 0), (slice_x, height), blue, 1)
+		frame = cv2.line(frame, (slice_x*hd, 0), (slice_x*hd, height), blue, 1)
 
 		areas_img = np.zeros((height, width, 3), dtype = np.uint8)
 
-		areas_img = cv2.line(areas_img, (0			, slice_y	), (width		, slice_y	), blue, 1)
-		areas_img = cv2.line(areas_img, (0			, slice_y*vd), (width		, slice_y*vd), blue, 1)
-		areas_img = cv2.line(areas_img, (slice_x	, 0			), (slice_x		, height	), blue, 1)
-		areas_img = cv2.line(areas_img, (slice_x*hd , 0			), (slice_x*hd 	, height	), blue, 1)
+		areas_img = cv2.line(areas_img, (0, slice_y), (width, slice_y), blue, 1)
+		areas_img = cv2.line(areas_img, (0, slice_y*vd), (width, slice_y*vd), blue, 1)
+		areas_img = cv2.line(areas_img, (slice_x, 0), (slice_x, height), blue, 1)
+		areas_img = cv2.line(areas_img, (slice_x*hd, 0), (slice_x*hd, height), blue, 1)
 
 		length = len(contours)
 
