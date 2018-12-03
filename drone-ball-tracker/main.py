@@ -3,7 +3,7 @@ import numpy as np
 import sys
 import time
 
-sys.path.append('../src')
+sys.path.append('../bybop')
 
 from PIL import ImageGrab
 from pynput import keyboard
