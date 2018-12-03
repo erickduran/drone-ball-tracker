@@ -4,7 +4,7 @@ This repository stores the implementation of a drone ball tracker.
 ## Getting started
 
 ### Prerequisites
-This code was implemented using __Python 3__ (3.7.0) and __OpenCV__ (3.4.3).
+This code was implemented using __Python 3__ (3.7.0), __OpenCV__ (3.4.3) and the __Bybop__ project by Nicolas Brulez.
 
 ### What is it?
 A python script that tracks a tennis ball with a Parrot Bebop drone and follows it.
